@@ -13,6 +13,9 @@
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-		<?php the_excerpt(); ?>
+		<?php //the_excerpt(); ?>
 	</div><!-- .entry-content -->
 </article><!-- #post-## -->
+<?php //if is_home() || is_single()?>
+<button type="button" id="new-quote-button">Show Me Another!</button>
+<?php ?>
