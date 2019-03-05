@@ -1,3 +1,22 @@
 /*--------------------------------------------------------------
 # Embedded Fonts
 --------------------------------------------------------------*/
+@font-face {
+    font-family: 'Exo Web';
+    src: url('../../fonts/exo-light-webfont.eot');
+    src: url('../../fonts/exo-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/exo-light-webfont.woff2') format('woff2'),
+         url('../../fonts/exo-light-webfont.woff') format('woff'),
+         url('../../fonts/exo-light-webfont.ttf') format('truetype'),
+         url('../../fonts/exo-light-webfont.svg#exolight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+// USAGE
+p{
+    color: #fff;
+font-family: Exo Web,sans-serif;
+font-size: 16px; //1rem;
+line-height: 1.5;
+}

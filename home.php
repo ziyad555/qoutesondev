@@ -22,6 +22,9 @@ get_header(); ?>
 												 
 						 </a>
 					 </div>
+			
+				<button type="button" id="new-quote-button">Show Me Another!</button>
+												
 				 </div><!-- .site-branding -->
 			 	</header>
 			<?php endif; ?>

@@ -74,6 +74,20 @@ function qod_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'qod_scripts' );
 
+//SINGLE QUOTE TUE 11:00AM
+/**
+ * Filter the Post archive.
+ */
+function qod_modify_archives( $query ) {
+	if ( ( is_home() || is_single() )  && $query->is_main_query() ) {
+		$query->set( 'posts_per_page', 1 );
+	} if ( ( is_archive() ) && $query->is_main_query() ) {
+		$query->set( 'posts_per_page', 5 );
+	}
+ }
+ add_action( 'pre_get_posts', 'qod_modify_archives' );
+
+ 
 /**
  * Custom functions that act independently of the theme templates.
  */

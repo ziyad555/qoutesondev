@@ -11,61 +11,86 @@
             xhr.setRequestHeader( 'X-WP-Nonce', red_vars.wpapi_nonce );
          }
       }).done( function(response) {
+        $(function() {
+            // fetch a new quote
+            $('#new-quote-button').on('click', function(event) {
+              event.preventDefault();
         
+              $.ajax({
+                method: 'get',
+                url:
+                  api_vars.root_url +
+                  'wp/v2/posts?filter[orderby]=rand&filter[posts_per_page]=1',
+                cache: false
+              }).done(function(data) {
+                const post = data.shift(), // get the first and only post array
+                  $sourceSpan = $('.source'),
+                  quoteSource = post._qod_quote_source,
+                  quoteSourceUrl = post._qod_quote_source_url,
+                  slug = post.slug,
+                  url = api_vars.home_url + '/' + slug + '/';
         
-   // var quoteMaster = [
-    { quote: "Do; or do not. There is no //TODO.", 
-       name: 'James Shore', },
-    
-     { quote: "When your hammer is C++, everything begins to look like a thumb.",
-    name: 'Steve Haflich' },
-    
-    { quote: "Unix will give you enough rope to shoot yourself in the foot. If you didn’t think rope would do that, you should have read the man page.",
-    name: "Mike Hoye" }, 
-    
-    {quote: "Debugging is like being the detective in a crime movie where you are also the murderer.", 
-     name: 'Filipe Fortes'}, 
-    
-    {quote: "Some people, when faced with a problem, think, “I know, I’ll use binary.” Now they have 10 problems.", 
-     name: 'Ned Batchelder'},
-    
-    {quote: "Some people, when confronted with a problem, think “I know, I’ll use versioning.” Now they have 2.1.0 problems.", 
-     name: 'Jason Coyle'}, 
-    
-    {quote: "Some people, when confronted with a problem, think “I know, I’ll use multithreading”. Nothhw tpe yawrve o oblems.", 
-     name: "Erik Osheim"},
-    
-    {quote: "Some programmers, when confronted with a problem, think “I know, I’ll use floating point arithmetic.” Now they have 1.999999999997 problems.", 
-     name: 'Tom Scott'}, 
-    
-    {quote: "Programmer’s motto: “We’ll cross that bridge when it’s burning underneath us.", 
-     name: 'Gary Bernhardt'},
-  ];
-  num = quoteMaster.length;
-  
-  var quoteRendered = document.getElementById('h3');
-  
-  var quoteRenderedBy = document.getElementById('h4');
-  
-  var handler = function(event) {
-    for (var i = 0; i < num; i++) {
-   
-    var x = Math.floor(Math.random() * num);
-     var quoteText = quoteMaster[x].quote;
-    var quoteTextBy = quoteMaster[x].name;
-  }
-    quoteRendered.innerHTML = quoteText; 
-    quoteRenderedBy.innerHTML = quoteTextBy;
-  };
-  
-  var button = document.getElementById('but');
-  
-  button.addEventListener('click', handler);
-  
-  
-
-         
+                // update the quote content and name of the quoted person
+                $('.entry-content').html(post.content.rendered);
+                $('.entry-title').html(
+                  '<h2 class="entry-title">&mdash; ' + post.title.rendered + '</h2>'
+                );
+        
+                // display quote source if available
+                if (quoteSource.length && quoteSourceUrl.length) {
+                  $sourceSpan.html(
+                    ', <a href="' + quoteSourceUrl + '">' + quoteSource + '</a>'
+                  );
+                } else if (quoteSource.length) {
+                  $sourceSpan.html(', ' + quoteSource);
+                } else {
+                  $sourceSpan.text('');
+                }
+              });
+            });
+        
+          });
       });
    });
+   /**
+   * Ajax-based front-end post submissions.
+   */
+  $(function() {
+    $('#quote-submission-form').on('submit', function(event) {
+      event.preventDefault();
+
+      const data = {
+        title: $('#quote-author').val(),
+        content: $('#quote-content').val(),
+        _qod_quote_source: $('#quote-source').val(),
+        _qod_quote_source_url: $('#quote-source-url').val(),
+        post_status: 'pending'
+      };
+
+      $.ajax({
+        method: 'post',
+        url: api_vars.root_url + 'wp/v2/posts',
+        data,
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-WP-Nonce', api_vars.nonce);
+        }
+      })
+        .done(function() {
+          // clear the form fields and hide the form
+          $('#quote-submission-form')
+          .slideup()
+          .find('input[type="text"], input[type="url"], textarea')
+          .val('');
+          // show success message
+          $('.submit-success-message')
+          .text(api_vars.success)
+          .slideDown('slow');
+        })
+        .fail(function() {
+          alert(api_vars.failure);
+        });
+    });
+  });
 })( jQuery );
 console.log( api_vars.success );
+
