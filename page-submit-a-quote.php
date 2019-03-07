@@ -28,8 +28,8 @@ get_header(); ?>
                        <h2>Provide the URL of the quote source, if available.</h2>
                        <input type="text" id="quote-url" />
                        <input type="submit" id="submit" value="Submit Quote" />
-                       <p class='submit-success'></p>
                    </form>
+				   <p class='submit-success' style="display:none"></p>
 
 
                    <?php  else : ?>

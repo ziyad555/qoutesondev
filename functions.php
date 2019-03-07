@@ -98,17 +98,20 @@ wp_enqueue_style( 'custom-fa', 'https://use.fontawesome.com/releases/v5.0.6/css/
 }
 
 function red_scripts() {
+	
 	wp_enqueue_script( 'jquery' );
+
+	if (function_exists('rest_url')) {
 	wp_enqueue_script( 'red_api', get_template_directory_uri() . '/build/js/api.min.js', array(), false, true );
-    wp_localize_script( 'red_api', 'red_vars', array(
-	   'rest_url' => esc_url_raw( rest_url() ),
-	   'wpapi_nonce' => wp_create_nonce( 'wp_rest' ),
-	   'post_id' => get_the_ID(),
+	wp_localize_script( 'red_api', 'red_vars', array(
+	   'root_url' => esc_url_raw( rest_url() ),
 	   'home_url' => esc_url_raw( home_url() ),
+	   'nonce' => wp_create_nonce( 'wp_rest' ),
 	   'success' => 'Thanks, your quote submission was received!',
 	   'failure' => 'Your submission could not be processed.',
    ) );
  }
+}
  add_action( 'wp_enqueue_scripts', 'red_scripts' );
 
  /**
