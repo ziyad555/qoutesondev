@@ -5,7 +5,7 @@
         $.ajax({
         method: 'get',
         url:
-        red_vars.rest_url +
+        red_vars.root_url +
             'wp/v2/posts?filter[orderby]=rand&filter[posts_per_page]=1',
         cache: false
         }).done(function(data) {
