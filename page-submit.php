@@ -1,25 +1,46 @@
 <?php
 /**
- * The template for displaying search results pages.
- *
- * @package QOD_Starter_Theme
- */
-get_header()?>
+* The template for displaying all submit page.
+*
+* @package QOD_Starter_Theme
+*/
+get_header(); ?>
 
-<!------------------------------------------------ SUBMISSION FORM ------------------------------------------------>
+   <div id="primary" class="content-area">
+       <main id="main" class="site-main" role="main">
 
-<?php if ( is_user_logged_in() ) ?>
-<form  action="/action_page.php">
-				author of the quote<br><br> 
-				<input type="text" name="fname"><br><br>
-				Quote<br><br>
-  <textarea rows="4" cols="50" name="lname"></textarea><br><br>
-				Where did you find this quote ?(e.g. book name) <br><br>
-				<input type="text" name="lname"><br><br>
-				Provide a URL of the source (if availabel)<br><br>
-				<input type="text" name="fname"><br><br>
- 				 <input type="button" onclick="myFunction()" value="Submit form">
-                </form>
+           <section>
 
-<?php else ?>
-    
+               <div>
+                   <h1><?php the_title(); ?>
+               </div>
+
+
+                   <!-- display form html -->
+               <?php if ( is_user_logged_in() && current_user_can( 'edit_post' ) ) : ?>  <!-- If user is logged in & can edit posts -->
+                       <form id="submitQuote">
+                       <h2>Author of Quote</h2>
+                       <input type="text" id="update-title" />
+                       <h2>Quote</h2>
+                       <textarea id="quote"></textarea>
+                       <h2>Where did you find this quote? (e.g. book name)</h2>
+                       <input type="text" id="quote-where" />
+                       <h2>Provide the URL of the quote source, if available.</h2>
+                       <input type="text" id="quote-url" />
+                       <input type="submit" id="submit" value="Submit Quote" />
+                       <p class='submit-success'></p>
+                   </form>
+
+
+                   <?php  else : ?>
+                   <p>Sorry, you must be logged in to submit a quote!</p>
+                   <a href="<?php echo wp_login_url( get_permalink() ); ?>" title="Login">Click here to login.</a>
+                   <?php  endif; ?>
+
+
+               </section>
+
+       </main><!-- #main -->
+   </div><!-- #primary -->
+
+<?php get_footer(); ?>
