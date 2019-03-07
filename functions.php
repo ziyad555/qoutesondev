@@ -12,9 +12,6 @@ if ( ! function_exists( 'qod_setup' ) ) :
  * Sets up theme defaults and registers support for various WordPress features.
  */
 function qod_setup() {
-	// adding a heade image to my theme
-		add_theme_support( 'custom-header' );
-
 	// Add default posts and comments RSS feed links to head.
 	add_theme_support( 'automatic-feed-links' );
 
@@ -63,31 +60,9 @@ function qod_scripts() {
 
 	wp_enqueue_script( 'qod-starter-navigation', get_template_directory_uri() . '/build/js/navigation.min.js', array(), '20151215', true );
 	wp_enqueue_script( 'qod-starter-skip-link-focus-fix', get_template_directory_uri() . '/build/js/skip-link-focus-fix.min.js', array(), '20151215', true );
-	//HERE WHERE YOU PUT THE JAVASCRIPT.
-	$script_url = get_template_directory_uri() . '/scripts.js';
-	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'red_comments', $script_url, array( 'jquery' ), false, true );
-   wp_localize_script( 'red_comments', 'red_vars', array(
-	   'rest_url' => esc_url_raw( rest_url() ),
-	   'wpapi_nonce' => wp_create_nonce( 'wp_rest' ),
-   ) );
 }
 add_action( 'wp_enqueue_scripts', 'qod_scripts' );
 
-//SINGLE QUOTE TUE 11:00AM
-/**
- * Filter the Post archive.
- */
-function qod_modify_archives( $query ) {
-	if ( ( is_home() || is_single() )  && $query->is_main_query() ) {
-		$query->set( 'posts_per_page', 1 );
-	} if ( ( is_archive() ) && $query->is_main_query() ) {
-		$query->set( 'posts_per_page', 5 );
-	}
- }
- add_action( 'pre_get_posts', 'qod_modify_archives' );
-
- 
 /**
  * Custom functions that act independently of the theme templates.
  */
@@ -107,3 +82,44 @@ require get_template_directory() . '/inc/metaboxes.php';
  * Custom WP API modifications.
  */
 require get_template_directory() . '/inc/api.php';
+
+  add_action( 'wp_enqueue_scripts', 'prefix_enqueue_awesome' );
+/**
+* Register and load font awesome CSS files using a CDN.
+*
+* @link http://www.bootstrapcdn.com/#fontawesome
+* @author FAT Media
+*/
+add_action( 'wp_enqueue_scripts', 'tthq_add_custom_fa_css' );
+
+function tthq_add_custom_fa_css() {
+wp_enqueue_style( 'custom-fa', 'https://use.fontawesome.com/releases/v5.0.6/css/all.css' );
+
+}
+
+function red_scripts() {
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'red_api', get_template_directory_uri() . '/build/js/api.min.js', array(), false, true );
+    wp_localize_script( 'red_api', 'red_vars', array(
+	   'rest_url' => esc_url_raw( rest_url() ),
+	   'wpapi_nonce' => wp_create_nonce( 'wp_rest' ),
+	   'post_id' => get_the_ID(),
+	   'home_url' => esc_url_raw( home_url() ),
+	   'success' => 'Thanks, your quote submission was received!',
+	   'failure' => 'Your submission could not be processed.',
+   ) );
+ }
+ add_action( 'wp_enqueue_scripts', 'red_scripts' );
+
+ /**
+ * Filter the Post archive.
+ */
+function qod_modify_archives( $query ) {
+	if ( ( is_home() || is_single() )  && $query->is_main_query() ) {
+		$query->set( 'posts_per_page', 1 );
+	} if ( ( is_archive() ) && $query->is_main_query() ) {
+		$query->set( 'posts_per_page', 5 );
+	}
+ }
+ add_action( 'pre_get_posts', 'qod_modify_archives' );
+ 

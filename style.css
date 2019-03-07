@@ -373,9 +373,7 @@ input[type="submit"] {
   input[type="button"]:hover,
   input[type="reset"]:hover,
   input[type="submit"]:hover {
-    border-color: #ccc #bbb #aaa;
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 15px 17px rgba(255, 255, 255, 0.8), inset 0 -5px 12px rgba(0, 0, 0, 0.02);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), inset 0 15px 17px rgba(255, 255, 255, 0.8), inset 0 -5px 12px rgba(0, 0, 0, 0.02); }
+    border-color: #ccc #bbb #aaa; }
   button:active, button:focus,
   input[type="button"]:active,
   input[type="button"]:focus,
@@ -383,9 +381,7 @@ input[type="submit"] {
   input[type="reset"]:focus,
   input[type="submit"]:active,
   input[type="submit"]:focus {
-    border-color: #aaa #bbb #bbb;
-    -webkit-box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 2px 5px rgba(0, 0, 0, 0.15);
-            box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.5), inset 0 2px 5px rgba(0, 0, 0, 0.15); }
+    border-color: #aaa #bbb #bbb; }
 
 /* Fields */
 input[type="text"],
@@ -577,6 +573,14 @@ a {
   clear: both;
   margin: 0 0 1.5rem; }
 
+.site-content {
+  margin: 4.5rem 175px 1.5rem;
+  position: relative;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%; }
+
 /*--------------------------------------------------------------
 # Media
 --------------------------------------------------------------*/
@@ -614,6 +618,9 @@ body {
 
 p.light {
   font-weight: lighter; }
+
+p {
+  font-size: 40px; }
 
 img.main-logo {
   display: block;
@@ -803,3 +810,6 @@ a.red-academy {
   display: flex;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap; }
+
+p.red-academy {
+  font-size: 16px; }

@@ -9,13 +9,13 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header class="entry-header">
-		<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+
 	</header><!-- .entry-header -->
 
 	<div class="entry-content">
-			<?php the_excerpt(); ?>
+	<?php the_excerpt(); ?>
 	</div><!-- .entry-content -->
 </article><!-- #post-## -->
-<?php //if is_home() || is_single()?>
+<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
 <button type="button" id="new-quote-button">Show Me Another!</button>
 <?php ?>

@@ -15,7 +15,18 @@ get_header(); ?>
 				<?php get_template_part( 'template-parts/content', 'page' ); ?>
 
 				<?php endwhile; // End of the loop. ?>
-				
+
+				<form  action="/action_page.php">
+				author of the quote<br><br> 
+				<input type="text" name="fname"><br><br>
+				Quote<br><br>
+  <textarea rows="4" cols="50" name="lname"></textarea><br><br>
+				Where did you find this quote ?(e.g. book name) <br><br>
+				<input type="text" name="lname"><br><br>
+				Provide a URL of the source (if availabel)<br><br>
+				<input type="text" name="fname"><br><br>
+ 				 <input type="button" onclick="myFunction()" value="Submit form">
+                </form>
 
 		</main><!-- #main -->
 	</div><!-- #primary -->

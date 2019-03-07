@@ -76,6 +76,9 @@ body{
 p.light {
 	font-weight: lighter;
   }
+p{
+	font-size: 40px;
+}
 
 
 img.main-logo{
@@ -276,4 +279,8 @@ a.red-academy {
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
+}
+//THE RED ACADEMY LOGO
+p.red-academy {
+    font-size: 16px;
 }
